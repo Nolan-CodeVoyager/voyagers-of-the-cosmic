@@ -1,0 +1,639 @@
+/* ===========================================================================
+      MAIN.CSS — стили главной страницы (без чёрной дыры)
+      =========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+/* ------------------- CSS-переменные: единая палитра «космической» темы ------------------- */
+:root {
+  --bg: #050014;
+  --bg-soft: #12082a;
+  --card: #ffffff;
+  --text: #f5f0ff;
+  --text-muted: #a89bc2;
+  --accent: #a855f7;
+  --accent-dark: #7c3aed;
+  --accent-glow: #c084fc;
+  --cosmic-violet: #6d28d9;
+  --cosmic-pink: #e879f9;
+  --gradient: linear-gradient(
+    135deg,
+    #7c3aed 0%,
+    #a855f7 40%,
+    #c084fc 70%,
+    #e879f9 100%
+  );
+}
+
+/* ------------------- Общие стили ------------------- */
+* {
+  box-sizing: border-box;
+}
+
+/* ------------------- Плавная прокрутка ------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ------------------- Каркас страницы ------------------- */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------- Шапка ------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background: rgba(5, 0, 20, 0.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.18);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.site-header.scrolled {
+  box-shadow: 0 4px 32px rgba(124, 58, 237, 0.2);
+  background: rgba(5, 0, 20, 0.95);
+}
+
+.logo {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-btn:hover {
+  color: var(--text);
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.25);
+}
+/*--меню кнопка--*/
+/* ------------------- Выпадающее меню ------------------- */
+.dropdown { 
+  position: relative; 
+  display: inline-block; 
+}
+.dropdown-menu { 
+  display: none; 
+  position: absolute; 
+  top: 110%; 
+  left: 0; 
+  background: rgba(5,0,20,0.95); 
+  border: 1px solid rgba(168,85,247,0.2); 
+  border-radius: 12px; 
+  padding: 8px; 
+  min-width: 160px; 
+  flex-direction: column; 
+  gap: 4px; 
+}
+.dropdown-menu.open { 
+  display: flex; 
+}
+.dropdown-item { 
+  color: var(--text-muted); 
+  text-decoration: none; 
+  padding: 8px 12px; 
+  border-radius: 8px; 
+  font-size: 14px; 
+  transition: background 0.2s, color 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+}
+.dropdown-item:hover { 
+  color: var(--text); 
+  background: rgba(168,85,247,0.12); 
+}
+/* ------------------- Главный экран ------------------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+#starfield {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  font-family: Caveat;
+  font-weight: 600;
+  border-radius: 20px;
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: var(--accent-glow);
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.hero h1 {
+  margin: 0 0 16px;
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 800;
+  line-height: 1.15;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+.hero p {
+  margin: 0 0 32px;
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+.scroll-down-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 14px;
+  background: var(--gradient);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+
+.scroll-down-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.55);
+}
+
+.scroll-down-arrow {
+  display: inline-block;
+  animation: bounce 1.2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* ------------------- Основная секция (виджет) ------------------- */
+/* ------------------- Основная секция (виджет) ------------------- */
+.main-section {
+  
+  width: 1100px;
+  margin: 0 auto 80px;
+  padding: 24px 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(180deg, rgba(18, 8, 42, 0.3) 0%, rgba(124, 58, 237, 0.15) 50%, rgba(5, 0, 20, 0.9) 100%);
+}
+
+.main-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 32px;
+  padding: 30px;
+  font-family:'Caveat';
+  font-weight: 700;
+  font-style: normal;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent-glow);
+  margin-bottom: 8px;
+}
+
+.wrap h2 {
+  font-size: 28px;
+  text-align: center;
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.wrap p {
+  margin: 0 0 28px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ------------------- Карточка виджета ------------------- */
+.card {
+  background: rgba(18, 8, 42, 0.7);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow:
+    0 8px 40px rgba(124, 58, 237, 0.25),
+    0 0 0 1px rgba(168, 85, 247, 0.25);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.card h3 {
+  margin: 0 0 16px;
+  font-size: 18px;
+  text-align: center;
+  color: var(--accent-glow);
+}
+
+/* ------------------- Контейнер iframe ------------------- */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  border-radius: 12px;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  overflow: hidden;
+  background: #0a0215;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/*-- Основная секция контент о Inkling --*/
+.inkling-section {
+  padding: 100px 24px;
+  background: linear-gradient(180deg, #050014 0%, #0f0220 60%, #12082a 100%);
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+}
+.inkling-wrap { 
+  max-width: 1100px;
+}
+.inkling-sub { color: var(--text-muted); 
+  text-align: center; 
+  font-size: 18px; 
+}
+.inkling-grid { display: grid;
+   grid-template-columns:
+  repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px; 
+   margin: 40px 0;
+}
+.inkling-card { background: rgba(255,255,255,0.04);
+   border: 1px solid rgba(168,85,247,0.15);
+   border-radius: 16px; 
+   padding: 24px; 
+   backdrop-filter: blur(8px); 
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.inkling-card:hover { 
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(124,58,237,0.25); 
+}
+.inkling-card img { 
+  width: 100%; 
+  height: 220px; 
+  object-fit: cover; 
+  border-radius: 12px; 
+  margin-bottom: 16px; 
+}
+.inkling-card h3 { 
+  margin: 0 0 8px; 
+  text-align: center;
+  font-family: Caveat;
+  font-weight: 500;
+  font-size: xx-large;
+  color: var(--accent-glow); 
+}
+.inkling-text { 
+  max-width: 800px; 
+  margin: 0 auto; 
+  line-height: 1.7; 
+  color: var(--text-muted); 
+  text-align: center; 
+  font-size: 17px; 
+}
+.inkling-section { 
+  opacity: 0; 
+  transform: translateY(30px); 
+  transition: opacity 0.8s ease, transform 0.8s ease; 
+}
+.inkling-section.visible { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
+
+@keyframes glowPulse {
+  0%, 100% { text-shadow: 0 0 20px rgba(192,132,255,0.6), 0 0 40px rgba(168,85,247,0.4); }
+  50% { text-shadow: 0 0 40px rgba(232,121,249,0.9), 0 0 80px rgba(124,58,237,0.6); }
+}
+.inkling-wrap h2 { animation: glowPulse 3s ease-in-out infinite; }
+
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(168,85,247,0.15); box-shadow: 0 0 0 rgba(168,85,247,0); }
+  50% { border-color: rgba(232,121,249,0.5); box-shadow: 0 0 30px rgba(168,85,247,0.25); }
+}
+.inkling-card { animation: borderGlow 4s ease-in-out infinite; }
+.inkling-card:nth-child(2) { animation-delay: -2s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.inkling-section.visible .inkling-card { animation: fadeUp 1s ease-out forwards; opacity: 0; }
+.inkling-section.visible .inkling-card:nth-child(1) { animation-delay: 0.2s; }
+.inkling-section.visible .inkling-card:nth-child(2) { animation-delay: 0.4s; }
+
+
+
+
+
+
+/* ------------------- О нас ------------------- */
+.about-section {
+  max-width: 900px;
+  margin: 55px auto 60px;
+  padding: 0 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.about-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-card {
+  background: var(--bg-soft);
+  text-align: center;
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.08);
+}
+
+.about-card h2 {
+  margin: 0 0 12px;
+  font-size: 40px;
+  font-family: Caveat;
+  font-weight: 500;
+}
+
+.about-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ------------------- Нижняя часть страницы ------------------- */
+.site-footer {
+  padding: 28px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(168, 85, 247, 0.15);
+  background: rgba(5, 0, 20, 0.7);
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ------------------- Адаптив для телефонов ------------------- */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 12px 16px;
+  }
+
+  .logo {
+    font-size: 14px;
+  }
+
+  .nav-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+/* ------------------- Статистика Inkling ------------------- */
+.inkling-stats { display:flex; justify-content:center; gap:24px; margin-top:36px; flex-wrap:wrap; }
+.inkling-stats .stat { background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.2); border-radius:12px; padding:16px 24px; text-align:center; min-width:120px; }
+.inkling-stats .stat span { display:block; font-size:28px; font-weight:700; color:var(--accent-glow); }
+/* ------------------- Компоненты ключей и модалки ------------------- */
+.counter-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.counter-box {
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 12px;
+  padding: 8px 16px;
+  color: #e879f9;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.15);
+}
+
+.counter-value {
+  color: #fff;
+  font-weight: 700;
+}
+
+.key-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 0 14px rgba(124, 58, 237, 0.35);
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.key-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 22px rgba(124, 58, 237, 0.55);
+}
+
+.decor-img {
+  position: absolute;
+  z-index: 5;
+  object-fit: contain;
+}
+
+.key-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 0, 20, 0.85);
+  backdrop-filter: blur(14px);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+.key-modal.open {
+  display: flex;
+}
+
+.key-modal-box {
+  background: linear-gradient(135deg, #12082a, #050014);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.3);
+  color: #fff;
+  font-family: inherit;
+}
+
+.key-modal-title {
+  margin: 0 0 16px;
+  font-family: 'Orbitron', sans-serif;
+  color: #e879f9;
+  text-shadow: 0 0 12px rgba(200, 160, 255, 0.35);
+}
+
+.key-modal-text {
+  margin: 0 0 16px;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.key-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  box-shadow: inset 0 0 8px rgba(168, 85, 247, 0.1);
+  margin-bottom: 16px;
+}
+
+.key-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-cancel {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-activate {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.35);
+}
+
+.inkling-stats .stat { font-size:14px; color:var(--text-muted); }
