@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/backend/server.js" },
+    { "source": "/main/(.*)", "destination": "/main/$1" },
+    { "source": "/img/(.*)", "destination": "/img/$1" },
+    { "source": "/(.*)", "destination": "/backend/server.js" }
+  ]
+}
