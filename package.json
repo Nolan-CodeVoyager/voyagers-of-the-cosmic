@@ -4,7 +4,8 @@
   "description": "Voyagers of the Cosmic — сайт с виджетом чата на базе NVIDIA Nemotron",
   "main": "backend/server.js",
   "scripts": {
-    "start": "node backend/server.js"
+    "start": "node backend/server.js",
+    "build": "echo 'Build complete'"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
