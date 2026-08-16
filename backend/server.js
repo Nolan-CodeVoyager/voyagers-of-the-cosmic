@@ -54,6 +54,7 @@ app.use(express.urlencoded({ extended: true }));
 // OPTIONS → 204: preflight-запрос браузера перед POST с JSON
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') {
@@ -78,6 +79,9 @@ app.use((req, res, next) => {
   // Нет пароля или неверный
   if (req.path === '/' || req.path.endsWith('.html') || req.path === '') {
     return res.send(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Доступ ограничен</title></head><body style="background:#050014;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;"><form method="POST" action="/" style="background:#12082a;padding:32px;border-radius:16px;border:1px solid rgba(168,85,247,0.2);box-shadow:0 0 30px rgba(124,58,237,0.2);width:340px;box-sizing:border-box;"><h2 style="margin:0 0 16px;color:#e879f9;text-align:center;">Введите пароль</h2><input name="pass" type="password" placeholder="Пароль" style="padding:10px 14px;border-radius:8px;border:1px solid rgba(168,85,247,0.3);background:rgba(255,255,255,0.05);color:#fff;width:100%;margin-bottom:12px;outline:none;box-sizing:border-box;font-size:15px;"><button type="submit" style="padding:10px 0;border:none;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-weight:600;cursor:pointer;width:100%;font-size:15px;">Войти</button></form></body></html>`);
+  }
+  if (req.path.startsWith('/api/')) {
+    return res.status(403).json({ error: 'Доступ ограничен. Введите пароль.' });
   }
   return res.status(403).send('Forbidden');
 });
