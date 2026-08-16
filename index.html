@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voyagers of the Cosmic</title>
+  <!-- Стили главной страницы -->
+  <link rel="stylesheet" href="main/main.css">
+</head>
+<body>
+  <!-- ===========================================================================
+       ГЛАВНАЯ СТРАНИЦА САЙТА
+       Заголовок + карточка с встроенным чат-виджетом через iframe.
+       Виджет живёт отдельным файлом widget.html — его можно вставить
+       на любую другую страницу тем же способом.
+       =========================================================================== -->
+
+  <!-- Шапка с навигационным меню -->
+  <header class="site-header" id="siteHeader">
+    <div class="logo">Voyagers of the Cosmic</div>
+    <nav class="nav-menu">
+      <div class="dropdown" id="menuDropdown">
+        <button class="nav-btn" onclick="toggleMenu()">Меню</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="#4321" class="dropdown-item" onclick="hideMenu()">Чат-виджет</a>
+          <a href="#inkling-section" class="dropdown-item" onclick="hideMenu()">Про Inkling</a>
+        </div>
+      </div>
+      <a href="#about-section" class="nav-btn">О нас</a>
+    </nav>
+  </header>
+
+  <!-- Герой-секция: приветствие, звёздное небо, кнопка скролла -->
+  <section class="hero" aria-label="Приветствие">
+    <!-- Canvas для звездного неба -->
+    <canvas id="starfield" aria-hidden="true"></canvas>
+
+    <!-- Контент главного экрана -->
+    <div class="hero-content">
+      <span class="hero-badge">infinite horizons</span>
+      <h1>Voyagers of the Cosmic</h1>
+      <p>Ваш помощник и проводник в мире ИИ. Все передовые нейросети можно попробывать бесплатно. Задайте вопросы или присылайте фото — поехали!</p>
+      <button class="scroll-down-btn" id="scrollDownBtn" aria-label="Прокрутить к чату">
+        <span class="scroll-down-arrow">↓</span>
+        Перейти к чату
+      </button>
+    </div>
+  </section>
+
+  <!-- Основная секция с виджетом (контент, который открывается при скролле) -->
+  <section class="main-section" id="main-section">
+    <div class="wrap" >
+      <div class="section-label" >Чат-виджет</div>
+      <h2>Космический ассистент</h2>
+      <div class="counter-row">
+        <div class="counter-box">
+          <span>Запросы:</span> <span id="requestCounter" class="counter-value">10</span>
+        </div>
+        <a href="#" onclick="document.getElementById('keyModal').classList.add('open'); return false;" class="key-btn">
+          🔑 Ключ код
+        </a>
+      </div>
+
+      <img src="img/5.png" alt="Космонавт" class="decor-img" style="left:1140px; top:90px; width:140px; height:500px;" />
+      <img src="img/1.png" alt="Космонавт" class="decor-img" style="left:-129px; top:380px; width:140px; height:200px; border-radius:12px;" />
+
+      <div class="card">
+        <h3>Виджет</h3>
+        <div class="iframe-container" id="4321">
+          <!-- widget.html — отдельный документ; общается с тем же backend через /api/chat -->
+          <iframe src="main/widget.html" title="Voyagers of the Cosmic — чат-виджет"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  <canvas id="starfield2" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+  <!-- Секция об Inkling -->
+   <section class="inkling-section" id="inkling-section">
+    <div class="wrap inkling-wrap">
+      <div class="section-label">Inkling</div>
+      <h2>Нейросеть нового поколения</h2>
+      <p class="inkling-sub">Разработана Thinking Machines Lab — команда под руководством Миры Мурати</p>
+
+      <div class="inkling-grid">
+        <div class="inkling-card">
+          <img src="https://i.pinimg.com/1200x/59/ab/da/59abda7394a9aa8d7a92d28d3bb181f8.jpg" alt="AI Neural" />
+          <h3>Космическая мощь</h3>
+          <p>Гигантская архитектура Mixture-of-Experts (MoE) с 975 миллиардами общих параметров, из которых на каждый токен эффективно и молниеносно работают 41 млрд.</p>
+        </div>
+        <div class="inkling-card">
+          <img src="https://i.pinimg.com/736x/d3/fd/09/d3fd09d234163e9f21f3dbc93670e1e9.jpg" alt="AI Futuristic" />
+          <h3>Нативная мультимодальность</h3>
+          <p>Модель обучена с нуля на 45 триллионах токенов, изначально понимая текст, графику, аудио и видео без костылей и прикрученных сбоку модулей.</p>
+        </div>
+      </div>
+
+      <div class="inkling-text">
+        <p>Inkling — ультимативная мультимодальная модель с открытыми весами на 975 миллиардов параметров от Thinking Machines Lab и звёздного экс-техдиректора OpenAI Миры Мурати, созданная в 2025 году. Забудьте про ограничения закрытых API: перед вами не игрушка для написания стишков, а мощнейший бизнес-инструмент с контекстным окном на миллионы токенов и архитектурой «Mixture-of-Experts (MoE)», которая перемалывает гигантские массивы данных — от сложнейшего софта и научных трактатов до мультиязычного мультимедиа — на безумной скорости и с абсолютной точностью.</p>
+      </div>
+
+      <div class="inkling-stats">
+        <div class="stat"><span>975B</span> параметров</div>
+        <div class="stat"><span>45T</span> токенов обучения</div>
+        <div class="stat"><span>41B</span> активных на токен</div>
+      </div>
+    </div>
+   </section>
+
+
+
+  <!-- Секция «О нас» — заготовка под будущий контент -->
+  <section class="about-section" id="about-section">
+    <div class="about-card">
+      <h2>О проекте</h2>
+      <p><strong>Voyagers of the Cosmic</strong> — учебный pet-проект, созданный для изучения интеграции ИИ в сайт в виде веб-приложения.</p>
+    </div>
+  </section>
+
+  <!-- Футер: некоммерческий учебный проект -->
+  <footer class="site-footer">
+    <p>Данный сайт не является коммерческим и используется исключительно в личных/учебных целях или как студенческий проект Voyagers of the Cosmic.</p>
+  </footer>
+
+  <!-- Starfield canvas script -->
+  <script src="main/starfield.js"></script>
+
+  <!-- Скрипт главной страницы -->
+  <script src="main/main.js"></script>
+  
+  <script>
+    function toggleMenu() { document.getElementById('dropdownMenu').classList.toggle('open'); }
+    function hideMenu() { document.getElementById('dropdownMenu').classList.remove('open'); }
+    document.addEventListener('click', function(e) { if (!e.target.closest('.dropdown')) { document.getElementById('dropdownMenu').classList.remove('open'); } });
+    function updateCounter() {
+      fetch('/api/limit').then(r=>r.json()).then(d => {
+        const el = document.getElementById('requestCounter');
+        if (d.unlimited) el.textContent = '∞';
+        else el.textContent = (d.remaining || 0);
+      }).catch(()=>{});
+    }
+    updateCounter();
+    setInterval(updateCounter, 3000);
+  </script>
+  <div id="keyModal" class="key-modal">
+    <div class="key-modal-box">
+      <h3 class="key-modal-title">Ввод ключа доступа</h3>
+      <p class="key-modal-text">Введите временный ключ для снятия лимита запросов:</p>
+      <input id="keyInput" type="text" placeholder="Код ключа" class="key-input" />
+      <div class="key-modal-actions">
+        <button onclick="document.getElementById('keyModal').classList.remove('open');" class="btn-cancel">Отмена</button>
+        <button onclick="const v=document.getElementById('keyInput').value; fetch('/api/redeem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:v})}).then(r=>r.json()).then(d=>{alert(d.redeemed?'Активирован: '+(d.bonus||'unlimited')+', осталось '+d.remaining:'Ошибка: '+(d.error||'неизвестно')); document.getElementById('keyModal').classList.remove('open'); document.getElementById('keyInput').value='';}).catch(e=>alert('Ошибка соединения'));" class="btn-activate">Активировать</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main/starfield2.js"></script>
+</body>
+</html>
